@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+
+  api:
+    image: sourcestream/highcore-api:latest-SNAPSHOT
+    environment:
+      DB_HOST: db
+      DB_PASSWORD: forge
+      DB_MIGRATE: "true"
+    depends_on:
+      - db
+
+  ui:
+    image: sourcestream/highcore-ui:latest-SNAPSHOT
+    ports:
+      - 3000:3000
+    environment:
+      ENDPOINT: http://nginx-api
+      DOMAIN: highcore.local
+    depends_on:
+      - nginx-api
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: forge
+      POSTGRES_USER: forge
+    ports:
+      - 5432:5432
+
+  nginx-api:
+    build: .docker/nginx-api
+    depends_on:
+      - api
+
+  nginx-ui:
+    build: .docker/nginx-ui
+    ports:
+      - 80:80
+    depends_on:
+      - ui

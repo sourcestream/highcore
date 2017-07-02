@@ -1,6 +1,14 @@
 # highcore
 OpenSource AWS resources management system with graphic UI and comprehensive REST api, based on CloudFormation.
 
+### Run
+
+Build images and run the service locally
+
+    /highcore-api#  docker-compose build api-package
+    /highcore-ui#  docker-compose build ui
+    /highcore#  docker-compose up
+
 ### UI
 [highcore-ui](https://github.com/sourcestream/highcore-ui)
 
