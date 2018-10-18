@@ -7,7 +7,19 @@ services:
     environment:
       DB_HOST: db
       DB_PASSWORD: forge
-      DB_MIGRATE: "true"
+      DB_USERNAME: forge
+      DB_DATABASE: forge
+      APP_KEY: SomeRandomString
+      DB_MIGRATE: "false"
+    privileged: true
+    volumes:
+      - $HOME/id_rsa:/var/www/.ssh/id_rsa
+      - $HOME/id_rsa:/app/storage/app/id_rsa
+      - $HOME/id_rsa.pub:/var/www/.ssh/id_rsa.pub
+      - $HOME/id_rsa.pub:/app/storage/app/id_rsa.pub
+      - $HOME/.ssh/known_hosts:/var/www/.ssh/known_hosts
+      - $HOME/.ssh/known_hosts:/app/storage/app/known_hosts
+      - $PWD/projects:/app/storage/app/projects/
     depends_on:
       - db
 
